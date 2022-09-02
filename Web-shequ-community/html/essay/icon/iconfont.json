@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "629333",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "2742655",
+      "name": "时间",
+      "font_class": "shijian",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "5022335",
+      "name": "评论",
+      "font_class": "pinglun",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "5365342",
+      "name": "文件",
+      "font_class": "wenjian",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "5835472",
+      "name": "目录",
+      "font_class": "mulu",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "6399125",
+      "name": "返回键",
+      "font_class": "weibiaoti--",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "12712264",
+      "name": "分享",
+      "font_class": "fenxiang",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    }
+  ]
+}

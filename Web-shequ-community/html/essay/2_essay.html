@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+
+    <link rel="stylesheet" href="./icon/iconfont.css" />
+    <link rel="stylesheet" href="./icon2/iconfont.css" />
+    <link rel="stylesheet" href="./essay.css" />
+    <link rel="shortcut icon" href="../../image/title.svg" type="image/svg" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      element-plus项目主题换肤与暗黑模式-暗黑模式在过去几年中最受欢迎，各大操作系统也全部支持了暗黑模式，并在浏览器中提供了查询是否开启暗黑模式接口。接下来以vue3的element-plus为例，通过切换全局css变量的方式，实现主题换肤与暗黑模式设置。
+    </title>
+  </head>
+
+  <body>
+    <div :class="body" id="app" ref="rightContent">
+      <div
+        id="top"
+        :class="xiangshang"
+        v-show="isxiangshang"
+        @click="scrolltop_btn"
+      >
+        <span>^</span>
+      </div>
+      <div :class="mubu_style" id="mubu" v-show="ismubu" @click="esc">
+        <!--  -->
+      </div>
+      <div :class="tishi" v-show="istishi">
+        <div>{{tishi_text}}</div>
+      </div>
+      <div :class="shezi" v-show="isshezi">
+        <div class="shezi_head">
+          <div class="shezi_one">
+            显示模式：白昼&nbsp;&nbsp;
+            <label class="label">
+              <div class="toggle">
+                <input
+                  class="toggle-state"
+                  type="checkbox"
+                  name="check"
+                  value="check"
+                  @click="btn_xs"
+                  v-model="btn_xianshi"
+                />
+                <div class="indicator"></div>
+              </div> </label
+            >&nbsp;&nbsp;暗夜
+          </div>
+        </div>
+        <div class="shezi_footer" @click="esc">取消</div>
+      </div>
+      <header>
+        <div class="title">
+          <span class="iconfont icon-weibiaoti--" @click="nav_btn(1)"></span>
+          <h1>element-plus项目主题换肤与暗黑模式</h1>
+          <span class="iconfont icon-shezhi" @click="nav_btn(2)"></span>
+        </div>
+      </header>
+      <article>
+        <div class="title">
+          <h1>element-plus项目主题换肤与暗黑模式</h1>
+          <div class="info">
+            <span>
+              <span class="iconfont icon-wenjian"></span>
+              <span> 教程 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-shijian"></span>
+              <span> 2022-8-21 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-geren"></span>
+              <span> 时迁酱 </span>
+            </span>
+          </div>
+          <div class="article_content">
+            <blockquote>
+              <p>
+                暗黑模式在过去几年中最受欢迎，各大操作系统也全部支持了暗黑模式，并在浏览器中提供了查询是否开启暗黑模式接口。接下来以vue3的element-plus为例，通过切换全局css变量的方式，实现主题换肤与暗黑模式设置。
+              </p>
+            </blockquote>
+            <h2>一、主流换肤实现思路</h2>
+            <h3>1. 修改全局CSS变量</h3>
+            <ul>
+              <li>在全局css文件或 app.vue中定义全局CSS变量</li>
+            </ul>
+            <code>
+              &lt;style&gt;<br />&nbsp;&nbsp;:root{<br />&nbsp;&nbsp;&nbsp;&nbsp;--background_color:red;<br />&nbsp;&nbsp;}<br />
+              &lt;/style&gt;
+            </code>
+            <ul>
+              <li>其他组件使用全局CSS变量</li>
+            </ul>
+            <code>
+              &lt;style scoped&gt; <br />
+              &nbsp;&nbsp;.test{ <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;background: var(--background_color);
+              <br />
+              &nbsp;&nbsp;} <br />
+              &lt;/style&gt;
+            </code>
+            <ul>
+              <li>切换主题（修改全局CSS变量）</li>
+            </ul>
+            <code>
+              const changeTheme = () =&gt; { <br />
+              &nbsp;&nbsp;document.documentElement.style.setProperty("--background_color","green");
+              <br />
+              }
+            </code>
+            <h3>2. 切换主题CSS文件</h3>
+            <ul>
+              <li>新建多套主题的css文件，放在assets文件夹的css文件夹中</li>
+            </ul>
+            <code>
+              # assets/css/theme_green.css <br />
+              .bg { <br />
+              &nbsp;&nbsp;background: green; <br />
+              } <br />
+              #assets/css/theme_red.css <br />
+              .bg { <br />
+              &nbsp;&nbsp;background: red; <br />
+              }
+            </code>
+            <ul>
+              <li>设置默认主题（初始化样式）</li>
+            </ul>
+            <code>
+              # src/App.vue <br />
+              import {onMounted} from "vue"; <br />
+              onMounted(() =&gt; { <br />
+              &nbsp;&nbsp;let link = document.createElement('link'); <br />
+              &nbsp;&nbsp;link.type = 'text/css'; <br />
+              &nbsp;&nbsp;link.id = "theme"; <br />
+              &nbsp;&nbsp;link.rel = 'stylesheet'; <br />
+              &nbsp;&nbsp;link.href ='assets/css/theme_red.css'; <br />
+              &nbsp;&nbsp;document.getElementsByTagName("head")[0].appendChild(link);
+              <br />
+              },
+            </code>
+            <ul>
+              <li>切换主题</li>
+            </ul>
+            <code>
+              const changeTheme = () =&gt; { <br />
+              &nbsp;&nbsp;document.getElementById('theme').href =
+              'assets/css/theme_green.css' <br />
+              }
+            </code>
+            <h3>3. 使用css预处理器（例如 scss，通过mixin混入器切换）</h3>
+            <ul>
+              <li>新建一个scss文件，里面配置不同的主题配色方案</li>
+            </ul>
+            <code>
+              $themes: ( <br />
+              &nbsp;&nbsp;light: ( <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;//字体 <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;font_color1: #414141, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;font_color2: white, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;//背景 <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;background_color1: #fff, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;background_color2: #f0f2f5, <br />
+              &nbsp;&nbsp;), <br />
+              &nbsp;&nbsp;dark: ( &nbsp;&nbsp; <br />
+              &nbsp;&nbsp;//字体 <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;font_color1: #a7a7a7, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;font_color2: white, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;//背景 <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;background_color1: #1b2531, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;background_color2: #283142, <br />
+              &nbsp;&nbsp;) <br />
+              );
+            </code>
+            <ul>
+              <li>
+                定义另外一个sass文件，来操作前面的$theme变量（当然两个文件可以合并，分开写是想把配置和操作解耦）
+              </li>
+            </ul>
+            <code>
+              @import&nbsp;&quot;./_themes.scss&quot;;<br />
+              <br />
+              //遍历主题map<br />
+              @mixin&nbsp;themeify&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;@each&nbsp;$theme-name,&nbsp;$theme-map&nbsp;in&nbsp;$themes&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//!global&nbsp;把局部变量强升为全局变量<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$theme-map:&nbsp;$theme-map&nbsp;!global;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//判断html的data-theme的属性值&nbsp;&nbsp;#{}是sass的插值表达式<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&amp;&nbsp;sass嵌套里的父容器标识&nbsp;&nbsp;&nbsp;@content是混合器插槽，像vue的slot<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[data-theme=&quot;#{$theme-name}&quot;]&nbsp;&amp;&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@content;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              }<br />
+              <br />
+              //声明一个根据Key获取颜色的function<br />
+              @function&nbsp;themed($key)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;map-get($theme-map,&nbsp;$key);<br />
+              }<br />
+              <br />
+              //获取背景颜色<br />
+              @mixin&nbsp;background_color($color)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;@include&nbsp;themeify&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;themed($color)!important;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              }<br />
+              <br />
+              //获取字体颜色<br />
+              @mixin&nbsp;font_color($color)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;@include&nbsp;themeify&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;themed($color)!important;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              }
+            </code>
+            <ul>
+              <li>在vue组件中使用，引入对应混入器</li>
+            </ul>
+            <code>
+              &lt;style&nbsp;lang=&quot;scss&quot;&nbsp;scoped&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;@import&nbsp;&quot;@/style/_handle.scss&quot;;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;.test&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@include&nbsp;font_color(&quot;font_color1&quot;);<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@include&nbsp;background_color(&quot;background_color1&quot;);<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &lt;/style&gt;
+            </code>
+            <ul>
+              <li>切换主题</li>
+            </ul>
+            <code>
+              const&nbsp;theme&nbsp;=&nbsp;(type)&nbsp;=&gt;&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;window.document.documentElement.setAttribute(&nbsp;&quot;data-theme&quot;,&nbsp;type&nbsp;);<br />
+              }
+            </code>
+            <h2>二、项目案例</h2>
+            <h3>1. 思路分析</h3>
+            <p>
+              参考element-plus
+              <a
+                href="https://element-plus.gitee.io/zh-CN/guide/theming.html#%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98%E8%89%B2"
+                target="_blank"
+                rel="noopener noreferrer"
+                >文档</a
+              >
+              ，element-plus提供了SCSS变量和CSS变量两种方式实现主题换肤。相比较而言，使用CSS变量实现更加便捷，代码也更易编写。
+              要想实现暗黑模式和明亮模式切换，首先使用vuex定义全局主题色已经是否开启暗黑模式变量并管理。然后创建一个颜色处理模块以及暗黑模式、主题色处理函数文件。最后根据需求，直接替换颜色即可。
+            </p>
+            <h3>2. 项目目录结构</h3>
+            <code>
+              ├──&nbsp;store&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;vuex文件夹<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;├──&nbsp;index.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;vuex入口文件<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;├──&nbsp;mutations.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;更改state中状态的逻辑<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;└──&nbsp;state.js&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;存放状态<br />
+              ├──&nbsp;utils<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;├──&nbsp;color.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;定义主题色以及暗黑模式、明亮模式颜色变量<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;├──&nbsp;dark.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;暗黑模式切换处理模块<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;└──&nbsp;theme.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;主题色切换模块<br />
+              ├──&nbsp;components<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;└──&nbsp;NavMenu.vue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;自定义组件，用于设置是否切换暗黑模式、主题色等操作<br />
+              ├──&nbsp;views<br />
+              |&nbsp;&nbsp;&nbsp;&nbsp;└──&nbsp;Home.vue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;项目Home页
+            </code>
+            <h3>3. vuex配置</h3>
+            <ul>
+              <li>state.js（定义状态变量，存放状态）</li>
+            </ul>
+            <code>
+              const&nbsp;state&nbsp;=&nbsp;{<br />
+              //&nbsp;是否开启暗黑模式<br />
+              dark:&nbsp;false,<br />
+              //&nbsp;默认主题色<br />
+              theme:&#39;#409eff&#39;,<br />
+              }<br />
+              export&nbsp;default&nbsp;state
+            </code>
+            <ul>
+              <li>mutations.js（定义处理state状态的操作逻辑）</li>
+            </ul>
+            <code>
+              const&nbsp;mutations&nbsp;=&nbsp;{<br />
+              //&nbsp;是否开启暗黑模式<br />
+              setDark(state,&nbsp;value)&nbsp;{<br />
+              state.dark&nbsp;=&nbsp;value<br />
+              },<br />
+              //&nbsp;设置主题色<br />
+              setTheme(state,&nbsp;value)&nbsp;{<br />
+              state.theme&nbsp;=&nbsp;value<br />
+              },<br />
+              }<br />
+              export&nbsp;default&nbsp;mutations
+            </code>
+            <ul>
+              <li>index.js（此处使用vuex-along实现状态持久化管理）</li>
+            </ul>
+            <code>
+              import&nbsp;{createStore}&nbsp;from&nbsp;&#39;vuex&#39;<br />
+              import&nbsp;mutations&nbsp;from&nbsp;&#39;@/store/mutations&#39;<br />
+              import&nbsp;state&nbsp;from&nbsp;&quot;@/store/state&quot;;<br />
+              import&nbsp;createVuexAlong&nbsp;from&nbsp;&#39;vuex-along&#39;<br />
+              <br />
+              export&nbsp;default&nbsp;createStore({<br />
+              state,<br />
+              &nbsp;mutations,<br />
+              &nbsp;plugins:&nbsp;[<br />
+              &nbsp;&nbsp;createVuexAlong({<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;local:&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;[&nbsp;],<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;},<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;session:&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;[&quot;dark&quot;,&nbsp;&quot;theme&quot;],<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;})<br />
+              &nbsp;&nbsp;]<br />
+              })
+            </code>
+            <h3>定义颜色处理模块</h3>
+            <ul>
+              <li>color.js（定义颜色变量值）</li>
+            </ul>
+            <code>
+              //&nbsp;颜色管理<br />
+              import&nbsp;{ref}&nbsp;from&nbsp;&quot;vue&quot;;<br />
+              <br />
+              function&nbsp;color()&nbsp;{<br />
+              //&nbsp;主题颜色变量组<br />
+              const&nbsp;themeList&nbsp;=&nbsp;ref([<br />
+              {name:&nbsp;&#39;拂晓蓝(默认)&#39;,&nbsp;value:&nbsp;&#39;#409eff&#39;},<br />
+              {name:&nbsp;&#39;薄暮红&#39;,&nbsp;value:&nbsp;&#39;#e74c3c&#39;},<br />
+              {name:&nbsp;&#39;火山橘&#39;,&nbsp;value:&nbsp;&#39;#e67e22&#39;},<br />
+              {name:&nbsp;&#39;日暮黄&#39;,&nbsp;value:&nbsp;&#39;#f1c40f&#39;},<br />
+              {name:&nbsp;&#39;极光绿&#39;,&nbsp;value:&nbsp;&#39;#16a085&#39;},<br />
+              {name:&nbsp;&#39;酱紫&#39;,&nbsp;value:&nbsp;&#39;#9b59b6&#39;},<br />
+              ])<br />
+              //&nbsp;明亮模式全局颜色<br />
+              const&nbsp;lightList&nbsp;=&nbsp;ref([<br />
+              {name:&nbsp;&#39;--el-background-color-base&#39;,&nbsp;value:&nbsp;&#39;#f5f7fa&#39;},<br />
+              {name:&nbsp;&#39;--el-color-white&#39;,&nbsp;value:&nbsp;&#39;#ffffff&#39;},<br />
+              {name:&nbsp;&#39;--el-text-color-primary&#39;,&nbsp;value:&nbsp;&#39;#303133&#39;},<br />
+              {name:&nbsp;&#39;--el-text-color-regular&#39;,&nbsp;value:&nbsp;&#39;#606266&#39;},<br />
+              {name:&nbsp;&#39;--el-color-primary-light-9&#39;,&nbsp;value:&nbsp;&#39;#ecf5ff&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-base&#39;,&nbsp;value:&nbsp;&#39;#dcdfe6&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-light&#39;,&nbsp;value:&nbsp;&#39;#e4e7ed&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-extra-light&#39;,&nbsp;value:&nbsp;&#39;#f2f6fc&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-lighter&#39;,&nbsp;value:&nbsp;&#39;#ebeef5&#39;},<br />
+              ])<br />
+              //&nbsp;暗黑模式全局颜色<br />
+              const&nbsp;darkList&nbsp;=&nbsp;ref([<br />
+              {name:&nbsp;&#39;--el-background-color-base&#39;,&nbsp;value:&nbsp;&#39;#000000&#39;},<br />
+              {name:&nbsp;&#39;--el-color-white&#39;,&nbsp;value:&nbsp;&#39;#141414&#39;},<br />
+              {name:&nbsp;&#39;--el-text-color-primary&#39;,&nbsp;value:&nbsp;&#39;#ffffff&#39;},<br />
+              {name:&nbsp;&#39;--el-text-color-regular&#39;,&nbsp;value:&nbsp;&#39;#d0d0d0&#39;},<br />
+              {name:&nbsp;&#39;--el-color-primary-light-9&#39;,&nbsp;value:&nbsp;&#39;#1f1f1f&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-base&#39;,&nbsp;value:&nbsp;&#39;#434343&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-light&#39;,&nbsp;value:&nbsp;&#39;#434343&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-extra-light&#39;,&nbsp;value:&nbsp;&#39;#5c5c5c&#39;},<br />
+              {name:&nbsp;&#39;--el-border-color-lighter&#39;,&nbsp;value:&nbsp;&#39;#434343&#39;},<br />
+              ])<br />
+              return&nbsp;{<br />
+              darkList,&nbsp;themeList<br />
+              }<br />
+              }<br />
+              <br />
+              export&nbsp;default&nbsp;color
+            </code>
+            <ul>
+              <li>dark.js（暗黑模式切换模块）</li>
+            </ul>
+            <code>
+              import&nbsp;{computed,&nbsp;onMounted,&nbsp;ref}&nbsp;from&nbsp;&quot;vue&quot;;<br />
+              import&nbsp;store&nbsp;from&nbsp;&quot;@/store/index&quot;;<br />
+              import&nbsp;color&nbsp;from&nbsp;&quot;@/utils/color&quot;<br />
+              import&nbsp;{useCssVar}&nbsp;from&nbsp;&quot;@vueuse/core&quot;;<br />
+              <br />
+              function&nbsp;dark()&nbsp;{<br />
+              let&nbsp;{darkList,&nbsp;lightList}&nbsp;=&nbsp;color()<br />
+              //&nbsp;当前是否开启暗黑模式<br />
+              const&nbsp;isDark&nbsp;=&nbsp;computed(()&nbsp;=&gt;&nbsp;store.state.dark)<br />
+              //&nbsp;切换暗黑模式<br />
+              const&nbsp;setDark&nbsp;=&nbsp;(value)&nbsp;=&gt;&nbsp;{<br />
+              store.commit(&#39;setDark&#39;,&nbsp;value)<br />
+              console.log(&quot;执行切换开启暗黑模式事件：&quot;,&nbsp;isDark.value)<br />
+              const&nbsp;el&nbsp;=&nbsp;ref(null)<br />
+              if&nbsp;(isDark.value)&nbsp;{<br />
+              console.log(&quot;要切换为暗黑模式&quot;)<br />
+              darkList.value.forEach((item,&nbsp;index)&nbsp;=&gt;&nbsp;{<br />
+              index&nbsp;=&nbsp;useCssVar(item.name,&nbsp;el)<br />
+              index.value&nbsp;=&nbsp;item.value<br />
+              })<br />
+              }&nbsp;else&nbsp;{<br />
+              console.log(&quot;要切换为明亮模式&quot;)<br />
+              lightList.value.forEach((item,&nbsp;index)&nbsp;=&gt;&nbsp;{<br />
+              index&nbsp;=&nbsp;useCssVar(item.name,&nbsp;el)<br />
+              index.value&nbsp;=&nbsp;item.value<br />
+              })<br />
+              }<br />
+              }<br />
+              onMounted(()&nbsp;=&gt;&nbsp;{<br />
+              //&nbsp;console.log(&quot;是否开启暗黑模式：&quot;,isDark)<br />
+              setDark(isDark.value)<br />
+              })<br />
+              return&nbsp;{<br />
+              setDark,<br />
+              }<br />
+              }<br />
+              <br />
+              export&nbsp;default&nbsp;dark
+            </code>
+            <ul>
+              <li>theme.js（主题色切换模块）</li>
+            </ul>
+            <code>
+              import&nbsp;{computed,&nbsp;onMounted,&nbsp;ref}&nbsp;from&nbsp;&quot;vue&quot;;<br />
+              import&nbsp;store&nbsp;from&nbsp;&quot;@/store/index&quot;;<br />
+              import&nbsp;{useCssVar}&nbsp;from&nbsp;&quot;@vueuse/core&quot;;<br />
+              <br />
+              function&nbsp;theme()&nbsp;{<br />
+              //&nbsp;当前默认主题色<br />
+              const&nbsp;themeValue&nbsp;=&nbsp;computed(()&nbsp;=&gt;&nbsp;store.state.theme)<br />
+              //&nbsp;切换主题色<br />
+              const&nbsp;setTheme&nbsp;=&nbsp;(value)&nbsp;=&gt;&nbsp;{<br />
+              store.commit(&#39;setTheme&#39;,&nbsp;value)<br />
+              console.log(&quot;执行切换主题色事件：&quot;,&nbsp;themeValue.value)<br />
+              const&nbsp;el&nbsp;=&nbsp;ref(null)<br />
+              const&nbsp;primary_color&nbsp;=&nbsp;useCssVar(&#39;--el-color-primary&#39;,&nbsp;el)<br />
+              primary_color.value&nbsp;=&nbsp;themeValue.value<br />
+              }<br />
+              onMounted(()&nbsp;=&gt;&nbsp;{<br />
+              setTheme(themeValue.value)<br />
+              })<br />
+              return&nbsp;{<br />
+              setTheme,<br />
+              }<br />
+              }<br />
+              <br />
+              export&nbsp;default&nbsp;theme
+            </code>
+            <h3>4. element-plus组件主题配置</h3>
+            <p>
+              通过浏览器审查元素可知，element
+              plus组件都使用了css全局变量色，切换暗黑主题时，只需要更改全局变量的值即可，切换主题时，更换el-color-primary的值即可。
+            </p>
+            <p>
+              <img
+                src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2022/png/2308212/1644742554570-6db1c1a7-ac95-4351-945d-93db2931bd72.png#clientId=ud6ec7376-b116-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=410&id=ubedf8fa8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=410&originWidth=464&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51129&status=done&style=none&taskId=uab47c493-fbe8-45d6-9ea5-693fc19109f&title=&width=464"
+                alt=""
+              />
+            </p>
+            <h3>5. 自定义组件主题配置</h3>
+            <p>
+              为了保持全局样式风格统一，自定义组件设置样式时，使用element-plus定义的全局变量即可。
+            </p>
+            <code>
+              .test { <br />
+              &nbsp;&nbsp;cursor: pointer; <br />
+              &nbsp;&nbsp;background-color: var(--el-color-primary); <br />
+              &nbsp;&nbsp;transition: all 0.5s; <br />
+              }
+            </code>
+            <h3>6. 组件调用切换主题和深色模式</h3>
+            <ul>
+              <li>NavMenu.vue</li>
+            </ul>
+            <code>
+              &lt;template&gt;<br />
+              &nbsp;&nbsp;&lt;transition&nbsp;enter-active-class=&quot;animate__animated&nbsp;animate__fadeInDown&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;leave-active-class=&quot;animate__animated&nbsp;animate__fadeOutUp&quot;&gt;<br />
+              &nbsp;&nbsp;&lt;header&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;el-drawer<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title=&quot;系统设置&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v-model=&quot;drawer&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:direction=&quot;&#39;rtl&#39;&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:size=&quot;&#39;25%&#39;&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:before-close=&quot;handleClose&quot;&nbsp;destroy-on-close<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;el-divider&gt;&lt;/el-divider&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;display&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h4&gt;显示模式&lt;/h4&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img&nbsp;:class=&quot;isDark===true?&#39;&#39;:&#39;img-active&#39;&quot;&nbsp;src=&quot;~@/assets/images/light.png&quot;&nbsp;alt=&quot;&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img&nbsp;:class=&quot;isDark===false?&#39;&#39;:&#39;img-active&#39;&quot;&nbsp;src=&quot;~@/assets/images/dark.png&quot;&nbsp;alt=&quot;&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;el-switch<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style=&quot;display:&nbsp;block&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v-model=&quot;isDark&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active-color=&quot;#303133&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inactive-color=&quot;#f5f7fa&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;active-text=&quot;深色模式&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inactive-text=&quot;浅色模式&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@change=&quot;setDarkMode&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;el-divider&gt;&lt;/el-divider&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;color&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h4&gt;主题色&lt;/h4&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;el-tooltip&nbsp;v-for=&quot;(item,index)&nbsp;in&nbsp;themeList&quot;&nbsp;:key=&quot;index&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect=&quot;dark&quot;&nbsp;:content=&quot;item.name&quot;&nbsp;placement=&quot;top&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&nbsp;:style=&quot;{backgroundColor:item.value}&quot;&nbsp;:class=&quot;(colorValue===item.value?&#39;color-active&nbsp;&#39;:&#39;&#39;)&quot;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@click=&quot;colorChoose(item.value)&quot;&gt;&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/el-tooltip&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;el-divider&gt;&lt;/el-divider&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/el-drawer&gt;<br />
+              &nbsp;&nbsp;&lt;/header&gt;<br />
+              &nbsp;&nbsp;&lt;/transition&gt;<br />
+              &nbsp;&nbsp;&lt;div&nbsp;class=&quot;placeholder&quot;&gt;&lt;/div&gt;<br />
+              &lt;/template&gt;<br />
+              <br />
+              &lt;script&nbsp;setup&gt;<br />
+              import&nbsp;{ElMessageBox,&nbsp;ElMessage}&nbsp;from&nbsp;&#39;element-plus&#39;<br />
+              import&nbsp;{computed,&nbsp;onMounted,&nbsp;reactive,&nbsp;ref}&nbsp;from&nbsp;&quot;vue&quot;;<br />
+              import&nbsp;store&nbsp;from&nbsp;&quot;@/store/index&quot;;<br />
+              import&nbsp;dark&nbsp;from&nbsp;&quot;@/utils/dark&quot;;<br />
+              import&nbsp;color&nbsp;from&nbsp;&quot;@/utils/color&quot;<br />
+              import&nbsp;theme&nbsp;from&nbsp;&quot;@/utils/theme&quot;<br />
+              <br />
+              let&nbsp;{setDark}&nbsp;=&nbsp;dark()<br />
+              let&nbsp;{setTheme}&nbsp;=&nbsp;theme()<br />
+              let&nbsp;{themeList}&nbsp;=&nbsp;color()<br />
+              //设置-菜单默认关闭<br />
+              let&nbsp;drawer&nbsp;=&nbsp;ref(false);<br />
+              //设置-菜单关闭事件<br />
+              const&nbsp;handleClose&nbsp;=&nbsp;()&nbsp;=&gt;&nbsp;{<br />
+              &nbsp;&nbsp;drawer.value&nbsp;=&nbsp;false<br />
+              };<br />
+              //&nbsp;设置-显示模式默认值<br />
+              const&nbsp;isDark&nbsp;=&nbsp;ref(false)<br />
+              //&nbsp;设置-切换是否设置暗黑模式<br />
+              const&nbsp;setDarkMode&nbsp;=&nbsp;()&nbsp;=&gt;&nbsp;{<br />
+              &nbsp;&nbsp;console.log(&quot;菜单栏执行切换事件&quot;,&nbsp;isDark.value)<br />
+              &nbsp;&nbsp;setDark(isDark.value)<br />
+              }<br />
+              //&nbsp;设置-默认主题色<br />
+              const&nbsp;colorValue&nbsp;=&nbsp;ref(&#39;&#39;)<br />
+              //&nbsp;设置-切换主题色事件<br />
+              const&nbsp;colorChoose&nbsp;=&nbsp;(value)&nbsp;=&gt;&nbsp;{<br />
+              &nbsp;&nbsp;colorValue.value&nbsp;=&nbsp;value<br />
+              &nbsp;&nbsp;console.log(colorValue.value)<br />
+              &nbsp;&nbsp;setTheme(colorValue.value)<br />
+              }<br />
+              &lt;/script&gt;<br />
+              <br />
+              &lt;style&nbsp;scoped&nbsp;lang=&quot;scss&quot;&gt;<br />
+              <br />
+              &lt;/style&gt;<br />
+            </code>
+            <h3>7. 跟随系统设置暗黑主题</h3>
+            <p>使用 matchMedia 方法可以直接获取浏览器当前是使用深色模式</p>
+            <ul>
+              <li>App.vue</li>
+            </ul>
+            <code>
+              &lt;template&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;router-view&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;router-view&nbsp;v-slot=&quot;{&nbsp;Component&nbsp;}&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;component&nbsp;:is=&quot;Component&quot;/&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/router-view&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+              &lt;/template&gt;<br />
+              <br />
+              &lt;script&nbsp;setup&gt;<br />
+              import&nbsp;{onMounted}&nbsp;from&nbsp;&quot;vue&quot;;<br />
+              import&nbsp;dark&nbsp;from&nbsp;&quot;@/utils/dark&quot;;<br />
+              let&nbsp;{setDark}&nbsp;=&nbsp;dark()<br />
+              const&nbsp;locale&nbsp;=&nbsp;zhCn<br />
+              onMounted(()&nbsp;=&gt;&nbsp;{<br />
+              &nbsp;&nbsp;const&nbsp;is_dark&nbsp;=&nbsp;window.matchMedia(&#39;(prefers-color-scheme:&nbsp;dark)&#39;).matches<br />
+              &nbsp;&nbsp;setDark(is_dark)<br />
+              })<br />
+              <br />
+              &lt;/script&gt;<br />
+              <br />
+              &lt;style&nbsp;lang=&quot;scss&quot;&gt;<br />
+              <br />
+              .router-view&nbsp;{<br />
+              &nbsp;&nbsp;color:&nbsp;var(--el-text-color-primary);<br />
+              &nbsp;&nbsp;background-color:&nbsp;var(--el-background-color-base);<br />
+              &nbsp;&nbsp;transition:&nbsp;background&nbsp;1s,&nbsp;color&nbsp;0.6s;<br />
+              &nbsp;&nbsp;width:&nbsp;100%;<br />
+              &nbsp;&nbsp;height:&nbsp;max-content;<br />
+              &nbsp;&nbsp;min-height:&nbsp;100vh;<br />
+              &nbsp;&nbsp;position:&nbsp;absolute;<br />
+              &nbsp;&nbsp;top:&nbsp;0;<br />
+              &nbsp;&nbsp;bottom:&nbsp;0;<br />
+              &nbsp;&nbsp;margin:&nbsp;0&nbsp;auto;<br />
+              &nbsp;&nbsp;-webkit-overflow-scrolling:&nbsp;touch;<br />
+              &nbsp;&nbsp;animation-timing-function:&nbsp;linear;<br />
+              }<br />
+              &lt;/style&gt;
+            </code>
+            <h2>三、效果演示</h2>
+            <h3>1. 设置暗黑模式与主题色菜单</h3>
+            <p>
+              <img
+                src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2022/png/2308212/1644743301047-972b2114-aca1-4298-9038-e89a4ba692b6.png#clientId=ud6ec7376-b116-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=856&id=u61d6efa7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=856&originWidth=1441&originalType=binary&ratio=1&rotation=0&showTitle=false&size=408708&status=done&style=none&taskId=u4b72367b-2a8b-4313-b6db-19ee2ceb7f2&title=&width=1441"
+                alt=""
+              />
+            </p>
+            <h3>2. 开启暗黑模式</h3>
+            <p>
+              <img
+                src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2022/png/2308212/1644743389087-d8f1bb50-2047-402c-af3d-26202ee3d901.png#clientId=ud6ec7376-b116-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=853&id=u9a55a84a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=853&originWidth=1425&originalType=binary&ratio=1&rotation=0&showTitle=false&size=633145&status=done&style=none&taskId=u26cadb94-8864-4c33-ab3a-15aa6dcf7d6&title=&width=1425"
+                alt=""
+              />
+            </p>
+            <h3>3. 切换主题色（深色绿）</h3>
+            <p>
+              <img
+                src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2022/png/2308212/1644743413562-31c1874e-7283-4eca-afcb-6127a0d54b72.png#clientId=ud6ec7376-b116-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=857&id=ud6593819&margin=%5Bobject%20Object%5D&name=image.png&originHeight=857&originWidth=1425&originalType=binary&ratio=1&rotation=0&showTitle=false&size=636939&status=done&style=none&taskId=uf8485162-78bd-42d1-9f51-ba2cc2e16c0&title=&width=1425"
+                alt=""
+              />
+            </p>
+            <h3>4. 切换主题色（浅色紫）</h3>
+            <p>
+              <img
+                src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2022/png/2308212/1644743785258-c397162a-edfb-4b47-9a75-6a29d5306649.png#clientId=ud6ec7376-b116-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=856&id=u4d3cdce3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=856&originWidth=1430&originalType=binary&ratio=1&rotation=0&showTitle=false&size=642903&status=done&style=none&taskId=u11f3a5b4-1b55-48c6-bdf9-b342e2c2b9d&title=&width=1430"
+                alt=""
+              />
+            </p>
+            <blockquote>
+              <p>本教程来自互联网，如有侵权请联系站长删除</p>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+      <footer></footer>
+    </div>
+    <script src="../../js/logstyle/logstyle.js"></script>
+    <script src="./essay.js"></script>
+  </body>
+</html>

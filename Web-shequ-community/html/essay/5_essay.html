@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+
+    <link rel="stylesheet" href="./icon/iconfont.css" />
+    <link rel="stylesheet" href="./icon2/iconfont.css" />
+    <link rel="stylesheet" href="./essay.css" />
+    <link rel="shortcut icon" href="../../image/title.svg" type="image/svg" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      flex弹性布局总结-flex是flexible
+      Box的缩写，用来为盒状模型提供最大的灵活性，任何一个容器都可以指定为flex布局。当为父盒子设置为flex布局以后，子元素的float、clear和vertical-align属性将失效。
+      采用flex布局的元素，称为flex容器，他的所有子元素自动成为容器成员，称为flex项目
+      flex布局原理：通过父盒子添加flex属性，控制子盒子的位置和排列方式
+    </title>
+  </head>
+
+  <body>
+    <div :class="body" id="app" ref="rightContent">
+      <div
+        id="top"
+        :class="xiangshang"
+        v-show="isxiangshang"
+        @click="scrolltop_btn"
+      >
+        <span>^</span>
+      </div>
+      <div :class="mubu_style" id="mubu" v-show="ismubu" @click="esc">
+        <!--  -->
+      </div>
+      <div :class="tishi" v-show="istishi">
+        <div>{{tishi_text}}</div>
+      </div>
+      <div :class="shezi" v-show="isshezi">
+        <div class="shezi_head">
+          <div class="shezi_one">
+            显示模式：白昼&nbsp;&nbsp;
+            <label class="label">
+              <div class="toggle">
+                <input
+                  class="toggle-state"
+                  type="checkbox"
+                  name="check"
+                  value="check"
+                  @click="btn_xs"
+                  v-model="btn_xianshi"
+                />
+                <div class="indicator"></div>
+              </div> </label
+            >&nbsp;&nbsp;暗夜
+          </div>
+        </div>
+        <div class="shezi_footer" @click="esc">取消</div>
+      </div>
+      <header>
+        <div class="title">
+          <span class="iconfont icon-weibiaoti--" @click="nav_btn(1)"></span>
+          <h1>为什么 CSS 动画比 JavaScript 高效？</h1>
+          <span class="iconfont icon-shezhi" @click="nav_btn(2)"></span>
+        </div>
+      </header>
+      <article>
+        <div class="title">
+          <h1>🍬 为什么 CSS 动画比 JavaScript 高效？</h1>
+          <div class="info">
+            <span>
+              <span class="iconfont icon-wenjian"></span>
+              <span> 编程 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-shijian"></span>
+              <span> 2022-8-24 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-geren"></span>
+              <span> 时迁酱 </span>
+            </span>
+          </div>
+          <div class="article_content">
+            <p>
+              <img
+                src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/240736eb08694c6fb63153e0b639ccbb~tplv-k3u1fbpfcp-zoom-crop-mark:3024:3024:3024:1702.awebp"
+                alt="img"
+              />
+            </p>
+            <blockquote>
+              <p>
+                讲到动画，当然是非常有意思的啦，你可以往上滑一下，看看上面的封面图，是不是相当的炫酷，以为我是代码写出来的吗？
+              </p>
+              <p>那当然不可能啊，我这么摸鱼，怎么会为了个封面图上号呢</p>
+              <p>
+                废话不多说，其实上面的动图用代码实现也不会很困难，这个图是用
+                canva 做出来的。
+              </p>
+              <p>本文主要讲以下这些内容</p>
+              <ol>
+                <li>浏览器渲染流程</li>
+                <li>回流和重绘</li>
+                <li>CSS 动画</li>
+                <li>JS 动画</li>
+                <li>两者对比</li>
+              </ol>
+            </blockquote>
+            <h2>🍉 1. 浏览器的渲染流程</h2>
+            <p>渲染流程主要有4个步骤</p>
+            <ol>
+              <li>解析 HTML 生成DOM 树</li>
+              <li>
+                解析 CSS 样式生成 CSSOM 树，CSSOM 树与 DOM 树结合生成 Render
+                tree
+              </li>
+              <li>
+                布局 Render Tree 对每个节点进行布局处理，确定在屏幕上的位置
+              </li>
+              <li>绘制 Render Tree，遍历渲染树将每个节点绘制出来</li>
+            </ol>
+            <p>
+              为了优化用户体验，渲染引擎不会等到 HTML 解析完才创建布局渲染树
+            </p>
+            <h3>§ 生成 DOM 树</h3>
+            <p>
+              DOM
+              树的构建是一个深度遍历过程，也就是说只有在所有子节点都构建好后才会去构建当前节点的下一个兄弟节点
+            </p>
+            <h3>§ 生成 Render 树</h3>
+            <p>
+              生成 DOM 树的同时会生成 CSSOM 树，根据 CSSOM 和 DOM 树构建 Render
+              Tree，渲染树包括颜色，尺寸等显示属性的矩形
+            </p>
+            <h3>§ DOM 树和 Render 树</h3>
+            <p>
+              <img
+                src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/54110664c3694f2abc169e9ecebe9b3c~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp"
+                alt="img"
+              />
+            </p>
+            <h2>🍋 2. 回流和重绘</h2>
+            <p>CSS 中至关重要的概念</p>
+            <h3>§ 回流</h3>
+            <p>
+              回流也叫 <span style="color: #2196f3">重排</span> ，指
+              <span style="color: #2196f3">几何属性</span> 需要改变的渲染
+            </p>
+            <p>
+              每一次的回流都会将网页内容
+              <span style="color: #2196f3">重新渲染</span>
+              ，只是我们人眼感觉不到有任何变化，但是它确实是会清空页面的，再从页面的左上角的第一个像素点从左到右从上到下这样一点一点渲染，每次回流都会是这样的过程，只是感觉不到而已
+            </p>
+            <blockquote>
+              <p>
+                渲染树的节点发生改变，影响了该节点的几何属性，导致该节点位置发生变化，此时就会触发浏览器回流并重新生成渲染树。
+              </p>
+            </blockquote>
+            <p>常见的几何属性：布局，尺寸这些可以用尺子量出来的属性</p>
+            <ul>
+              <li>display、float、grid</li>
+              <li>width、padding</li>
+            </ul>
+            <p>等</p>
+            <h3>§ 重绘</h3>
+            <p>
+              重绘指更改
+              <span style="color: #2196f3">外观属性</span>
+              而不影响
+              <span style="color: #2196f3">集合属性</span>
+              的渲染，类似于颜色这些。相比于回流，重绘的作用不会那么强烈。
+            </p>
+            <p>
+              渲染树的节点发生改变，但不影响该节点的集合属性，回流对浏览器性能的消耗是远大于重绘的。并且回流就必然带来重绘，重绘不一定需要回流
+            </p>
+            <p style="color: #2196f3">外观属性</p>
+            <ul>
+              <li>clip，background</li>
+              <li>text</li>
+            </ul>
+            <p>等</p>
+            <p>在介绍完这些知识后我们来聊聊 CSS 动画</p>
+            <h2>🍍 3. CSS3 动画</h2>
+            <p>这里我们只谈论 CSS3 的动画</p>
+            <p>
+              CSS3
+              动画也被称为补间动画，原因是只需要添加关键帧的位置，其他的未定义的帧会被自动生成
+            </p>
+            <p>
+              因为我们只设置了几个关键帧的位置，所以在进行动画控制的时候比较困难，不能再半路暂停动画，或者在动画过程中添加一些其他操作，都不大容易
+            </p>
+            <p>但是 CSS 动画也有很多的好处</p>
+            <ul>
+              <li>浏览器可以对动画进行优化</li>
+              <li>帧速不好的浏览器，CSS3 可以自然降级兼容</li>
+              <li>代码简单，调优方向固定</li>
+            </ul>
+            <h2>🍎 4. JS 动画</h2>
+            <p>
+              首先，JS
+              动画是逐帧动画，在时间帧上绘制内容，一帧一帧的，所以他的可再造性很高，几乎可以完成任何你想要的动画形式。但是由于逐帧动画的内容不一样，会增加制作的负担，占用比较大的资源空间。
+            </p>
+            <p>但是它也有很多的优势</p>
+            <ul>
+              <li>细腻的动画</li>
+              <li>可控性高</li>
+              <li>炫酷高级的动画</li>
+            </ul>
+            <h2>💯 5. CSS 动画与 JS 动画对比</h2>
+            <p>
+              前面关于 CSS 动画和 JS 动画，都是一些概念性比较强的东西，不看也罢
+            </p>
+            <p>
+              说了这么多，到底为什么CSS动画要
+              <span style="color: #2196f3">更高效</span>
+              呢？
+            </p>
+            <h3>§ 第一点</h3>
+            <p>
+              从实现动画的复杂度来看，CSS 动画大多数都是补间动画，而 JS
+              动画是逐帧动画。当然这里我们不谈论实现的效果
+            </p>
+            <h3>§ 第二点</h3>
+            <p>
+              编码的高效，采用 JS
+              去实现的动画，无论多简单的动画，都需要去控制整个过程，当然你可能会说可以采用一些库来解决这些问题，但是这些库的实际运行可能要比原生实现的效率要低的多
+            </p>
+            <h3>§ 第三点</h3>
+            <p>
+              性能的高效，在我们前面讲到了回流和重绘，如果我们要操作一个元素向右移动，我们可能需要控制<span
+                style="
+                  display: inline-block;
+                  color: rgb(197, 0, 0);
+                  background-color: rgba(210, 183, 183, 0.598);
+                  font-size: 10px;
+                  padding: 0 6px;
+                  margin: 0 6px;
+                "
+              >
+                dom.style.left </span
+              >属性，每次来
+              <span style="color: #2196f3">改变元素的位置</span>
+              ，而结合我们所说的，
+              <span style="color: #2196f3">几何属性</span>
+              的改变必然会引起
+              <span style="color: #2196f3">回流</span>
+              ，回流必然引起重绘，可想而知如果我们采用 JS
+              来实现动画，这个代价有多大，这会造成浏览器在不断的计算页面，从而导致浏览器内存堆积。同时由于
+              JavaScript
+              运行在浏览器的主线程中，主线程中还有其他的重要任务在运行，因而可能会受到干扰导致
+              <span style="color: #2196f3">线程阻塞</span> ，从而丢帧
+              <span style="color: #2196f3">丢帧</span>
+            </p>
+            <p>
+              而 CSS
+              的动画是运行在合成线程中的，不会阻塞主线程，并且在合成线程中完成的动作不会触发回流和重绘
+            </p>
+            <p>
+              当然还有一个重要的点：JS 动画运行在 CPU，而 CSS 动画运行在 GPU
+            </p>
+            <p>
+              总的来说， CSS动画的渲染成本小，并且它的执行效率高于 JavaScript
+              动画
+            </p>
+            <hr />
+            <p>那我们什么时候使用 CSS 动画，什么时候使用 JS 动画呢？</p>
+            <p>我个人觉得</p>
+            <p>
+              <span style="color: #2196f3"
+                >只要能用 CSS 实现的动画，就不要采用 JS 去实现</span
+              >
+              ，可以多采用 CSS 预处理器去做更多复杂的动画，就像我之前用 SCSS
+              做的流星雨动画一样
+            </p>
+            <p>
+              如果动画相较复杂，我们可以采用<span
+                style="
+                  display: inline-block;
+                  color: rgb(197, 0, 0);
+                  background-color: rgba(210, 183, 183, 0.598);
+                  font-size: 10px;
+                  padding: 0 6px;
+                  margin: 0 6px;
+                "
+              >
+                JS + canvas </span
+              >去尝试，能不能实现
+            </p>
+            <p>最后再考虑纯 JS 实现</p>
+            <hr />
+            <p>
+              这篇文章可能还有很多值得探讨的地方，大佬们有什么看法或者不一样的见解可以一起交流以下~
+            </p>
+            <blockquote>
+              <p>
+                非常感谢您的阅读，欢迎提出你的意见，有什么问题欢迎指出，谢谢！🎈
+              </p>
+              <p>
+                本文章转载自<a
+                  href="https://juejin.cn/post/6999934705957077029"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >《稀土掘金》</a
+                >
+              </p>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+      <footer></footer>
+    </div>
+    <script src="../../js/logstyle/logstyle.js"></script>
+    <script src="./essay.js"></script>
+  </body>
+</html>

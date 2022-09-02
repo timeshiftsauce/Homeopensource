@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <link rel="stylesheet" href="./fonts/iconfont.css" />
+    <link rel="stylesheet" href="./fonts/font3/iconfont.css" />
+    <link rel="stylesheet" href="./fonts/gdt/iconfont.css" />
+    <link rel="stylesheet" href="./css/index-style.css" />
+    <link rel="stylesheet" href="./css/essay.css" />
+    <link rel="shortcut icon" href="./image/title.svg" />
+    <meta name="keywords" condent="时迁酱,web社区,web论坛,知识分享" />
+    <meta name="description" content="时迁酱的个人主页" />
+    <meta name="theme-color" content="#b8f1ed" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>时迁web社区-是知识分享，论坛，学习经验，社区的团体</title>
+    <script src="./js/logstyle/logstyle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+  </head>
+
+  <body>
+    <div class="doing" id="doing">
+      <div class="loader">
+        <span style="--i: 1"></span>
+        <span style="--i: 2"></span>
+        <span style="--i: 3"></span>
+        <span style="--i: 4"></span>
+        <span style="--i: 5"></span>
+        <span style="--i: 6"></span>
+        <span style="--i: 7"></span>
+        <div class="doing-text"></div>
+      </div>
+      <svg id="doing-svg">
+        <filter id="gooey">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+          <feColorMatrix
+            values="
+          1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 20 -10
+          "
+          />
+        </filter>
+      </svg>
+      <p class="doing-p">Loading. . .</p>
+    </div>
+    <div class="text-content">
+      <div class="more" id="more">
+        <h1>更多设置</h1>
+        <ul class="list-ul">
+          <li class="one">
+            <div class="none-more">网站名称 ：时迁web社区</div>
+          </li>
+          <li class="one">
+            联系站长 :
+            <br />
+            <div class="link_more">
+              <a
+                href="./html/weixin.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="lx"
+              >
+                <span class="iconfont icon-weixin">
+                  <p>微信</p>
+                </span>
+              </a>
+              <a
+                href="http://wpa.qq.com/msgrd?v=3&uin=2115295703&site=qq&menu=yes"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="lx"
+              >
+                <span class="iconfont icon-qq">
+                  <p>QQ</p>
+                </span>
+              </a>
+            </div>
+          </li>
+          <li class="one">
+            <a href="" class="about--" target="_blank">关于</a>
+          </li>
+          <li class="one">
+            <a href="" class="about--" target="_blank">开源</a>
+          </li>
+          <li class="one">
+            <a
+              href="https://www.shiqianjiang.cn/sitemap.xml"
+              class="about--"
+              target="_blank"
+              >网站地图</a
+            >
+          </li>
+          <li class="one">
+            <a
+              href="https://jq.qq.com/?_wv=1027&k=9eqRaxa4"
+              class="about--"
+              target="_blank"
+              >进入“Web开发小宇宙”QQ群</a
+            >
+          </li>
+          <li class="one">功能7</li>
+          <li class="one">功能8</li>
+          <li class="one">功能9</li>
+          <li class="one">功能10</li>
+          <li class="one">功能11</li>
+          <li class="one">功能12</li>
+          <li class="one">功能13</li>
+          <li class="copyright">
+            <h3>
+              <span
+                style="
+                  font-size: 1.4em;
+                  color: rgb(255, 0, 0);
+                  margin-right: 4px;
+                "
+                >*</span
+              >网站相关：
+            </h3>
+            <ul>
+              <li>&copy;2022&nbsp;Shi&nbsp;Qianjiang <span>时迁博客®</span></li>
+              <li>
+                <a
+                  href="https://beian.miit.gov.cn/"
+                  target="_blank"
+                  title="网站ICP备案"
+                >
+                  闽ICP备2022011053号-1
+                </a>
+              </li>
+              <li>
+                <a
+                  href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35020602002570"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="网站公安备案"
+                >
+                  <img
+                    src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png"
+                    alt="anbei"
+                  />
+                  闽公网安备35020602002570号
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="taskbar" id="Taskbar">
+        <ul class="nav">
+          <li class="list default">
+            <span class="iconfont icon-home">
+              <p class="text">首页</p>
+            </span>
+          </li>
+          <li class="list">
+            <span class="iconfont icon-fabuwenzhang 1">
+              <p class="text">文章</p>
+            </span>
+          </li>
+          <li class="list">
+            <span class="iconfont icon-keshijieshao 1 2">
+              <p class="text">介绍</p>
+            </span>
+          </li>
+          <li class="list">
+            <span class="iconfont icon-lianjie_1 1 2 3">
+              <p class="text">链接</p>
+            </span>
+          </li>
+          <div class="circle" id="circle"></div>
+        </ul>
+      </div>
+      <!-- 底部任务栏/导航栏 -->
+      <div class="top-title">
+        <div class="logo">
+          <img src="./image/logo.svg" alt="" />
+        </div>
+        <p class="text" id="head_text">首页</p>
+        <div class="button">
+          <label for="check" class="bar" id="bar">
+            <input id="check" type="checkbox" onclick="check()" />
+
+            <span class="top"></span>
+            <span class="middle"></span>
+            <span class="bottom"></span>
+          </label>
+        </div>
+      </div>
+      <!-- 顶部标题 -->
+      <div class="content" id="content">
+        <div class="home" id="home">
+          <div class="banner">
+            <!-- 轮播图 -->
+            <div
+              class="container"
+              id="app"
+              @mouseover="stopAutoPlay"
+              @mouseout="startAutoPlay"
+            >
+              <div class="img-box">
+                <img :src="item.image" alt="" v-for="item in list" />
+              </div>
+              <div
+                class="bottom-box"
+                :style="{'--b-color':list[0].bottom_color}"
+              >
+                <div class="l-box">
+                  <div class="title">{{list[active_index].title}}</div>
+                  <ul class="dots">
+                    <li
+                      :class="[index==active_index?'pacman':'dot',is_prev?'l':'']"
+                      v-for="(item,index) in list"
+                      @click="changeBanner(index)"
+                    >
+                      <!-- 吃豆人 -->
+                      <div v-if="index==active_index"></div>
+                      <div v-if="index==active_index"></div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="r-box">
+                  <span
+                    class="iconfont icon-xiangzuo1"
+                    @click="changeBanner(-1,true)"
+                  ></span>
+                  <span
+                    class="iconfont icon-xiangyou1"
+                    @click="changeBanner(-1,false)"
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <!-- 介绍 -->
+            <div class="about-introduce">
+              <h1>介绍</h1>
+              <p class="text">
+                你好呀！我是时迁酱哦,你可能并不认识我，但是你却在这个拥有数不尽的网站中进入了我的网站,
+                我很是欣慰。
+              </p>
+              <p class="text">
+                这个是我移动端的个人博客哦！麻雀虽小五脏俱全，功能也非常的多哦，如果你也想和我一样学习前端可以点击右下角的链接图标来学习呀!
+                里面有我自己做的教程和其他推荐的教程网站哦。如果你觉得自己太小了没有必要,那你就错了本作者才14周岁哦不骗你哦;
+                如果你觉得自己太大了不妨去看看最近，日本出现的一位“世界上最年长的程序员”，打破了大家对传统程序员的认知。这位老年程序员叫“若宮正子”，今年86岁，是位女性，专注于IOS应用开发.
+                俗话说的好：“活到老，学到老。”学习是永无止境的。
+              </p>
+              <p class="text end">
+                下面我要推荐一下我的老师"<a
+                  href="https://kangwenchang.com/"
+                  target="_blank"
+                  ><span class="iconfont icon-lianjie_1"></span>康文昌</a
+                >"
+                他是《Re01:从零开始的编程之路》作者，元岛社区发起人，清林云创始人.
+                元岛（www.midorg.com）是一个学习型DAO
+                社区，有永久免费的新时代课程和团结互助的社群。你可以将元岛视为在线大学，有课程，有小组，有班级，有社团，等等。你可以将元岛视为游戏，写作业和参与活动都能获得经验值或积分，等级高的同学不仅能登上榜单，更能获得实际奖励。你可以将元岛视为无边界公司，可以自行或和他人合作进行商业项目。你也可以将元岛视为社区，这里都是一些团结友爱、热爱学习和积极向上的小伙伴，认识大家扩展你的生活边界.
+                怎么样很厉害吧想看ta的bilibili视频？来吧<a
+                  href="https://www.bilibili.com/video/BV1AF411s78P?spm_id_from=333.999.0.0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >&lt;<span class="iconfont icon-lianjie_1"></span
+                  >点击这里&gt;</a
+                >就可以啦！ 他还有微信小程序哦！<a
+                  href="https://wxaurl.cn/7PqMUMyDdIh"
+                  target="_blank"
+                  ><span class="iconfont icon-lianjie_1"></span
+                  >打开微信小程序“元岛”</a
+                >
+              </p>
+            </div>
+          </div>
+          <div class="about">
+            <div class="log">
+              <h1>日志</h1>
+              <hr />
+              <ul>
+                <li>
+                  <div>7月26日 正式上线。</div>
+                </li>
+                <li>
+                  <div>7月27日 顶部及底部导航栏完工</div>
+                </li>
+                <li>
+                  <div>7月29日 轮播图开始制作</div>
+                </li>
+                <li>
+                  <div>7月30日 轮播图完工</div>
+                </li>
+                <li>
+                  <div>7月31日-8月2日 介绍功能完成</div>
+                </li>
+                <li>
+                  <div>8月3日 正式链接备案通过</div>
+                </li>
+                <li>
+                  <div>8月4日 日志功能趋完善</div>
+                </li>
+                <li>
+                  <div>8月8日 优化网站外观，公安备案通过</div>
+                </li>
+                <li>
+                  <div>8月9日 继续优化网站外观，更新更多按钮菜单</div>
+                </li>
+                <li>
+                  <div>8月11日 把网站备案等元素移到更多</div>
+                </li>
+                <li>
+                  <div>8月12日 优化网站加载速率</div>
+                </li>
+                <li>
+                  <div>8月13日 添加网站加载动画不用再看枯燥的加载界面啦</div>
+                </li>
+                <li>
+                  <div>8月13日-补 修复被当成广告被浏览器隐藏的元素</div>
+                </li>
+                <li>
+                  <div>8月16日 文章页导航栏完成</div>
+                </li>
+                <li>
+                  <div>8月18日 文章页内容和分类完成</div>
+                </li>
+                <li>
+                  <div>8月20日 文章页标题和设置and返回功能完成</div>
+                </li>
+                <li>
+                  <div>
+                    8月21日
+                    第一篇文章发布啦！修复手机滚动不显示回到顶部按钮的bug
+                  </div>
+                </li>
+                <li>
+                  <div>8月23日 文章页面加入一些动画使页面不在生硬。</div>
+                </li>
+                <li>
+                  <div>8月24日 让文章页面的文章拥有排序功能-累死我啦</div>
+                </li>
+                <li>
+                  <div>8月29日 做了些小优化</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="essay" id="essay" style="display: none">
+          <essay_content class="essay_box" id="essay_box">
+            <header class="swipe" id="swipe">
+              <div class="shezi" v-show="isshezi">
+                <h1>排序方式：</h1>
+                <ul>
+                  <li :class="{dif:!ispaixu}" @click="paixu(true)">
+                    按时间倒序
+                  </li>
+                  <li :class="{dif:ispaixu}" @click="paixu(false)">
+                    按时间正序
+                  </li>
+                </ul>
+              </div>
+              <ul id="Tab_option">
+                <li :class="{push:ispush == 1}" @click="tab_list(1)">全部</li>
+                <li :class="{push:ispush == 2}" @click="tab_list(2)">编程</li>
+                <li :class="{push:ispush == 3}" @click="tab_list(3)">教程</li>
+                <li :class="{push:ispush == 4}" @click="tab_list(4)">其他</li>
+              </ul>
+              <button @click="shezi_btn">
+                <svg
+                  t="1661249804705"
+                  class="icon"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="2450"
+                  width="200"
+                  height="200"
+                >
+                  <path
+                    d="M548 98.8h-69.9c-14.1 0-26.3 10-29 23.8L431 212.8c-2.1 10.2-9.3 18.5-19 22.1-8.2 3-16.2 6.3-24.1 10.1-4 1.8-8.3 2.8-12.8 2.8-5.8 0-11.6-1.7-16.3-5l-76.6-51.1c-11.8-7.8-27.4-6.3-37.3 3.7l-49.4 49.4c-10 10-11.6 25.6-3.7 37.3l51.1 76.6c5.7 8.7 6.6 19.7 2.1 29.1-3.7 7.9-7 15.9-10.1 24.1-3.5 9.7-11.9 17-22.1 19l-90.2 18.2c-13.8 2.8-23.8 14.9-23.8 29V548c0 14.1 10 26.3 23.8 29l90.2 18.1c10.2 2.1 18.5 9.3 22.1 19 3 8.2 6.3 16.3 10.1 24.1 4.4 9.4 3.7 20.4-2.1 29.1l-51.1 76.6c-7.8 11.7-6.3 27.4 3.7 37.3l49.4 49.4c10 10 25.6 11.6 37.3 3.7l76.6-51.1c4.9-3.2 10.6-5 16.3-5 4.4 0 8.8 1 12.8 2.8 7.9 3.7 15.9 7 24.1 10.1 9.7 3.6 17 11.9 19 22.1l18.1 90.2c2.8 13.8 14.9 23.8 29 23.8H548c14.1 0 26.3-10 29-23.8l18.1-90.2c2.1-10.2 9.3-18.5 19-22.1 8.2-3 16.3-6.3 24.1-10.1 4-1.8 8.3-2.8 12.8-2.8 5.8 0 11.6 1.7 16.3 5l76.6 51.1c11.7 7.8 27.4 6.3 37.3-3.7l49.4-49.4c10-10 11.6-25.6 3.7-37.3l-51.1-76.6c-5.7-8.7-6.6-19.7-2.2-29.1 3.7-7.9 7-15.9 10.1-24.1 3.6-9.7 11.9-17 22.1-19l90.2-18.1c13.8-2.8 23.8-14.9 23.8-29v-69.9c0-14.1-10-26.3-23.8-29L813.3 431c-10.2-2.1-18.5-9.3-22.1-19-3-8.2-6.3-16.2-10.1-24.1-4.4-9.4-3.7-20.4 2.2-29.1l51.1-76.6c7.8-11.8 6.3-27.4-3.7-37.3l-49.4-49.5c-10-10-25.6-11.6-37.3-3.7l-76.6 51.1c-4.9 3.2-10.6 5-16.3 5-4.4 0-8.8-1-12.8-2.8-7.9-3.7-15.9-7-24.1-10.1-9.7-3.5-17-11.9-19-22.1l-18.1-90.2c-2.8-13.8-15-23.8-29.1-23.8z m-34.9 591.8c-84.7 0-157.6-59.8-174.1-142.9S366.9 381.5 445.2 349c78.2-32.4 168.5-5.1 215.6 65.3 47 70.4 37.9 164.3-22.1 224.2-33.3 33.5-78.4 52.2-125.6 52.1z"
+                    fill="#91B1D5"
+                    p-id="2451"
+                  ></path>
+                </svg>
+              </button>
+            </header>
+            <bodyer>
+              <ul class="list_ul_essay">
+                <li
+                  v-for="(item,index) in  essay_content_"
+                  @click="jump(item.id)"
+                  :style="'--index-:'+(index+1)+';'"
+                >
+                  <div class="essay_bar">
+                    <img :src="item.essay_img" :title="item.essay_title" />
+                    <div>
+                      <h1 v-text="item.essay_title">一个可爱的标题</h1>
+                      <p v-text="item.essay_text">一篇短短的介绍</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </bodyer>
+          </essay_content>
+        </div>
+        <div class="introduce-bottom" id="introduce" style="display: none">
+          介绍
+        </div>
+        <div class="link" id="link" style="display: none">链接</div>
+      </div>
+      <!-- 内容 -->
+    </div>
+  </body>
+</html>
+<script src="./js/index.js"></script>
+<script src="./js/index-2.js"></script>
+<script src="./js/essay.js"></script>

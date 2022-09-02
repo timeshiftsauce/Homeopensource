@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+
+    <link rel="stylesheet" href="./icon/iconfont.css" />
+    <link rel="stylesheet" href="./icon2/iconfont.css" />
+    <link rel="stylesheet" href="./essay.css" />
+    <link rel="shortcut icon" href="../../image/title.svg" type="image/svg" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      flex弹性布局总结-flex是flexible
+      Box的缩写，用来为盒状模型提供最大的灵活性，任何一个容器都可以指定为flex布局。当为父盒子设置为flex布局以后，子元素的float、clear和vertical-align属性将失效。
+      采用flex布局的元素，称为flex容器，他的所有子元素自动成为容器成员，称为flex项目
+      flex布局原理：通过父盒子添加flex属性，控制子盒子的位置和排列方式
+    </title>
+  </head>
+
+  <body>
+    <div :class="body" id="app" ref="rightContent">
+      <div
+        id="top"
+        :class="xiangshang"
+        v-show="isxiangshang"
+        @click="scrolltop_btn"
+      >
+        <span>^</span>
+      </div>
+      <div :class="mubu_style" id="mubu" v-show="ismubu" @click="esc">
+        <!--  -->
+      </div>
+      <div :class="tishi" v-show="istishi">
+        <div>{{tishi_text}}</div>
+      </div>
+      <div :class="shezi" v-show="isshezi">
+        <div class="shezi_head">
+          <div class="shezi_one">
+            显示模式：白昼&nbsp;&nbsp;
+            <label class="label">
+              <div class="toggle">
+                <input
+                  class="toggle-state"
+                  type="checkbox"
+                  name="check"
+                  value="check"
+                  @click="btn_xs"
+                  v-model="btn_xianshi"
+                />
+                <div class="indicator"></div>
+              </div> </label
+            >&nbsp;&nbsp;暗夜
+          </div>
+        </div>
+        <div class="shezi_footer" @click="esc">取消</div>
+      </div>
+      <header>
+        <div class="title">
+          <span class="iconfont icon-weibiaoti--" @click="nav_btn(1)"></span>
+          <h1>flex弹性布局总结</h1>
+          <span class="iconfont icon-shezhi" @click="nav_btn(2)"></span>
+        </div>
+      </header>
+      <article>
+        <div class="title">
+          <h1>flex弹性布局总结</h1>
+          <div class="info">
+            <span>
+              <span class="iconfont icon-wenjian"></span>
+              <span> 教程 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-shijian"></span>
+              <span> 2022-8-22 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-geren"></span>
+              <span> 时迁酱 </span>
+            </span>
+          </div>
+          <div class="article_content">
+            <h2>一、布局原理</h2>
+            <ol>
+              <li>
+                flex是flexible
+                Box的缩写，用来为盒状模型提供最大的灵活性，任何一个容器都可以指定为flex布局。
+              </li>
+              <li>
+                当为父盒子设置为flex布局以后，子元素的float、clear和vertical-align属性将失效。
+              </li>
+              <li>
+                采用flex布局的元素，称为flex容器，他的所有子元素自动成为容器成员，称为flex项目
+              </li>
+              <li>
+                flex布局原理：通过父盒子添加flex属性，控制子盒子的位置和排列方式
+              </li>
+            </ol>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/0c8fd080-572a-4f4c-9b78-6d9d63b24908.jpg"
+                alt=""
+              />
+            </p>
+            <h2>二、flex属性</h2>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/f08c3f5f-1aa9-42e9-b9f4-e3e606f1831a.jpg"
+                alt=""
+              />
+            </p>
+            <h2>三、常见样式设置</h2>
+            <table data-v-md-line="16">
+              <thead>
+                <tr>
+                  <th>需求</th>
+                  <th>父盒子</th>
+                  <th>子盒子</th>
+                  <th>效果</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>水平方向居中</td>
+                  <td>justify-content: center;</td>
+                  <td>-</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612097619530-8d4b3195-fd17-4a94-b24b-84a85455e15d.png#align=left&amp;display=inline&amp;height=161&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=161&amp;originWidth=261&amp;size=2018&amp;status=done&amp;style=none&amp;width=261"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>垂直方向居中</td>
+                  <td>flex-direction: column;</td>
+                  <td>-</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612097690284-246b017f-b176-4185-af84-1c91e5dd4e7b.png#align=left&amp;display=inline&amp;height=158&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=158&amp;originWidth=260&amp;size=2216&amp;status=done&amp;style=none&amp;width=260"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>水平垂直方向居中</td>
+                  <td>
+                    flex-direction: column;<br />justify-content: center;<br />align-items:
+                    center;
+                  </td>
+                  <td>-</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612097749962-3f1b1a02-91ff-4e8d-a1aa-62e4cc5222c5.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=260&amp;size=2341&amp;status=done&amp;style=none&amp;width=260"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>左右盒子贴边，中间盒子居中</td>
+                  <td>justify-content: space-between;</td>
+                  <td>-</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612097848602-d2adb732-0a07-4384-9ef3-ed3532c5f276.png#align=left&amp;display=inline&amp;height=158&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=158&amp;originWidth=258&amp;size=3044&amp;status=done&amp;style=none&amp;width=258"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>上线盒子贴边，中间盒子居中</td>
+                  <td>flex-wrap: wrap;</td>
+                  <td>-</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612098050131-93e28f4a-b21b-45c7-b525-2e0b1dbe49b1.png#align=left&amp;display=inline&amp;height=260&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=260&amp;originWidth=163&amp;size=3951&amp;status=done&amp;style=none&amp;width=163"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>上下左右盒子贴边，中间盒子居中</td>
+                  <td>
+                    flex-wrap: wrap;<br />justify-content: space-between;<br />align-content:
+                    space-between;
+                  </td>
+                  <td>-</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612098162525-df02c6c3-8b0e-49e9-bf07-90e2d115a6ce.png#align=left&amp;display=inline&amp;height=256&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=256&amp;originWidth=214&amp;size=6311&amp;status=done&amp;style=none&amp;width=214"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>两边盒子宽度固定，剩余空间给中间盒子</td>
+                  <td>-</td>
+                  <td>
+                    span:nth-child(1){width: 20px;}<br />span:nth-child(2){flex:1;}<br />span:nth-child(3){width:
+                    20px;}
+                  </td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612098275860-3758f67b-a861-4bb3-8a19-2d8a37dda3a0.png#align=left&amp;display=inline&amp;height=155&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=155&amp;originWidth=257&amp;size=3238&amp;status=done&amp;style=none&amp;width=257"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>三个盒子比例为1：2：1</td>
+                  <td>-</td>
+                  <td>
+                    span:nth-child(1){flex:1;}<br />span:nth-child(2){flex:2;}<br />span:nth-child(3){flex:1;}
+                  </td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612098390066-2f2e2aff-d58c-4062-91b8-88178080f895.png#align=left&amp;display=inline&amp;height=162&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=162&amp;originWidth=261&amp;size=3574&amp;status=done&amp;style=none&amp;width=261"
+                      alt="image.png"
+                    />
+                    |
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h2>四、flex父项属性</h2>
+            <h3>1. flex-direction（主轴的方向）</h3>
+            <ol>
+              <li>
+                主轴和侧轴是变化的，当flex-direction设置主轴后，剩下的就是侧轴，子元素跟着主轴来排列
+              </li>
+            </ol>
+            <table data-v-md-line="34">
+              <thead>
+                <tr>
+                  <th>属性值</th>
+                  <th>说明</th>
+                  <th>效果</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>row</td>
+                  <td>从左到右（默认）</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612092622481-cbdf672c-792d-47a5-8e59-b50d2c245536.png#align=left&amp;display=inline&amp;height=105&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=105&amp;originWidth=311&amp;size=2315&amp;status=done&amp;style=none&amp;width=311"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>row-reverse</td>
+                  <td>从右到左</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612092670673-4333e75f-1215-432d-a61a-2cd37f24ca1b.png#align=left&amp;display=inline&amp;height=105&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=105&amp;originWidth=308&amp;size=2500&amp;status=done&amp;style=none&amp;width=308"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>column</td>
+                  <td>从上到下</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612091548648-4fb1dae3-95fb-4527-ade7-7b89c254fde2.png#align=left&amp;display=inline&amp;height=109&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=109&amp;originWidth=312&amp;size=2149&amp;status=done&amp;style=none&amp;width=312"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>column-reverse</td>
+                  <td>从下到上</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612091570454-87e5254b-98a8-49f2-804e-47916b721021.png#align=left&amp;display=inline&amp;height=109&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=109&amp;originWidth=308&amp;size=2282&amp;status=done&amp;style=none&amp;width=308"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;300px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;100px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*从左到右排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*flex-direction:&nbsp;row;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*从右到左排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*flex-direction:&nbsp;row-reverse;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*从上到下排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*flex-direction:&nbsp;column;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*从下到上排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flex-direction:&nbsp;column-reverse;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin-right:&nbsp;10px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <h3>2.justify-content（主轴上的子元素排列方式）</h3>
+            <ol>
+              <li>设置在主轴上的对齐方式</li>
+            </ol>
+            <table data-v-md-line="85">
+              <thead>
+                <tr>
+                  <th>属性</th>
+                  <th>说明</th>
+                  <th>效果</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>flex-start</td>
+                  <td>从头开始，如果主轴x轴，则从左到右(默认值)</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612092437589-ef765b1b-9c6e-4389-917e-ba76c6df72d5.png#align=left&amp;display=inline&amp;height=108&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=108&amp;originWidth=311&amp;size=2350&amp;status=done&amp;style=none&amp;width=311"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>flex-end</td>
+                  <td>从尾部开始排列</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612092414520-848bae79-37fe-439f-881b-374707cd1e8d.png#align=left&amp;display=inline&amp;height=109&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=109&amp;originWidth=310&amp;size=2817&amp;status=done&amp;style=none&amp;width=310"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>center</td>
+                  <td>在主轴居中对齐</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612092544578-ab8b232c-9de8-44d5-b99c-6fbd6737284d.png#align=left&amp;display=inline&amp;height=108&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=108&amp;originWidth=309&amp;size=2399&amp;status=done&amp;style=none&amp;width=309"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>space-around</td>
+                  <td>平分剩余空间</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612092275748-3a30196b-7872-4b4a-b2d4-6f644a7afe7e.png#align=left&amp;display=inline&amp;height=114&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=114&amp;originWidth=315&amp;size=2804&amp;status=done&amp;style=none&amp;width=315"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>space-between</td>
+                  <td>两边贴边，平分剩余空间</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612092377868-c11f80cc-2516-4510-8b5d-98ef36b7cbf0.png#align=left&amp;display=inline&amp;height=108&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=108&amp;originWidth=306&amp;size=2670&amp;status=done&amp;style=none&amp;width=306"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;300px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;100px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*主轴从头开始排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*justify-content:&nbsp;flex-start;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*主轴从尾部开始排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*justify-content:&nbsp;flex-end;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*主轴居中对齐*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*justify-content:&nbsp;center;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*主轴子元素平分剩余空间*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*justify-content:&nbsp;space-around;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*主轴子元素两边贴边，然后平分剩余空间*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;justify-content:&nbsp;space-between;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <h3>3.flex-wrap（子元素是否换行）</h3>
+            <ol>
+              <li>默认情况下，所有子盒子都排列在一条线上，默认不换行</li>
+            </ol>
+            <table data-v-md-line="138">
+              <thead>
+                <tr>
+                  <th>属性</th>
+                  <th>说明</th>
+                  <th>效果</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>nowarp</td>
+                  <td>不换行（默认）</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612093336202-d08bf58f-05a9-4fe4-94d5-2dbdfbec7cb0.png#align=left&amp;display=inline&amp;height=161&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=161&amp;originWidth=260&amp;size=4185&amp;status=done&amp;style=none&amp;width=260"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>warp</td>
+                  <td>换行</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612093313896-0e4a039c-65c7-45a5-a254-a6faf10f8d45.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=256&amp;size=3897&amp;status=done&amp;style=none&amp;width=256"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>4.align-items（侧轴上的子元素排列方式-单行）</h3>
+            <ol>
+              <li>控制子盒子在侧轴上的排列方式，子盒子为单行时使用</li>
+            </ol>
+
+            <table data-v-md-line="185">
+              <thead>
+                <tr>
+                  <th>属性值</th>
+                  <th>说明</th>
+                  <th>效果</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>flex-start</td>
+                  <td>从上到下(默认)</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612093890890-d8fc6757-ce25-4fa9-838d-d514d1576bad.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=259&amp;size=2588&amp;status=done&amp;style=none&amp;width=259"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>flex-end</td>
+                  <td>从下到上</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612093942025-5139cb01-b289-435c-9009-87c06eca1473.png#align=left&amp;display=inline&amp;height=157&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=157&amp;originWidth=261&amp;size=3085&amp;status=done&amp;style=none&amp;width=261"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>center</td>
+                  <td>侧轴居中</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612093982481-a3580212-43e5-42fb-af98-9176b93e9256.png#align=left&amp;display=inline&amp;height=156&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=156&amp;originWidth=256&amp;size=3249&amp;status=done&amp;style=none&amp;width=256"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>stretch</td>
+                  <td>拉伸(不要给子盒子设置高度)</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612094046672-442f2165-6a7b-4a8a-a6e2-b4a80098135b.png#align=left&amp;display=inline&amp;height=156&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=156&amp;originWidth=257&amp;size=3548&amp;status=done&amp;style=none&amp;width=257"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;250px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;150px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴从上到下排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-items:&nbsp;flex-start;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴从下到上排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-items:&nbsp;flex-end;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴居中排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-items:&nbsp;center;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴拉伸*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align-items:&nbsp;stretch;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*height:&nbsp;50px;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <h3>5.align-content（侧轴上的子元素排列方式-多行）</h3>
+            <ol>
+              <li>
+                控制子盒子在侧轴上的排列方式，子盒子为多行时使用,记得设置flex-wrap:
+                wrap（换行排列）
+              </li>
+            </ol>
+            <table data-v-md-line="235">
+              <thead>
+                <tr>
+                  <th>属性值</th>
+                  <th>说明</th>
+                  <th>效果</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>flex-start</td>
+                  <td>从上到下（默认）</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612094554654-ce1e6eeb-f4f4-4627-ab31-4ef690fb5fcc.png#align=left&amp;display=inline&amp;height=156&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=156&amp;originWidth=256&amp;size=4102&amp;status=done&amp;style=none&amp;width=256"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>flex-end</td>
+                  <td>从下到上</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612094586391-c5acffee-b987-4fe0-9674-a77373e9acc5.png#align=left&amp;display=inline&amp;height=161&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=161&amp;originWidth=258&amp;size=4003&amp;status=done&amp;style=none&amp;width=258"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>center</td>
+                  <td>居中</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612094629383-ae7e197a-70e4-4aba-9644-a21ee728ef08.png#align=left&amp;display=inline&amp;height=155&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=155&amp;originWidth=255&amp;size=3977&amp;status=done&amp;style=none&amp;width=255"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>space-between</td>
+                  <td>两边贴边，平分剩余空间</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612095011874-ca166b39-28a5-40cb-a4cd-be8b6b7277ff.png#align=left&amp;display=inline&amp;height=161&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=161&amp;originWidth=262&amp;size=3961&amp;status=done&amp;style=none&amp;width=262"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>stretch</td>
+                  <td>拉伸（子盒子不要给高度）</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612094740780-ba0f3332-b1ec-4d4d-ac5f-18ddb0f1503b.png#align=left&amp;display=inline&amp;height=157&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=157&amp;originWidth=263&amp;size=4203&amp;status=done&amp;style=none&amp;width=263"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;250px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;150px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*换行排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flex-wrap:&nbsp;wrap;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴从上到下排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-content:&nbsp;flex-start;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴从下到上排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-content:&nbsp;flex-end;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴居中排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-content:&nbsp;center;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴拉伸*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-content:&nbsp;stretch;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*侧轴两边贴边*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align-content:&nbsp;space-between;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;4&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;5&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;6&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <h3>
+              6.flex-flow（复合属性，相当于同时设置flex-direction和flex-wrap）
+            </h3>
+            <ol>
+              <li>设置以列主轴方向，并换行</li>
+            </ol>
+            <p>
+              <img
+                src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612095365366-d9dc3eae-388f-4bfd-ae8a-b2426509dc3c.png#align=left&display=inline&height=164&margin=%5Bobject%20Object%5D&name=image.png&originHeight=164&originWidth=259&size=4515&status=done&style=none&width=259"
+                alt=""
+              />
+            </p>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;250px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;150px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*已列方向为主轴*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flex-direction:&nbsp;column;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*超出后换行*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flex-wrap:wrap;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*以上两个属性合写*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flex-flow:column&nbsp;wrap;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;4&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;5&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;6&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <h2>五、flex子项属性</h2>
+            <h3>1.flex（子项占剩余空间份数）</h3>
+            <table data-v-md-line="340">
+              <thead>
+                <tr>
+                  <th>三个子盒子平均分配宽度</th>
+                  <th>span1(flex:1) <br />span2(flex:1) <br />span3(flex:1)</th>
+                  <th>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612096053964-3885641a-842a-4e3f-b185-eabda0716307.png#align=left&amp;display=inline&amp;height=156&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=156&amp;originWidth=260&amp;size=3117&amp;status=done&amp;style=none&amp;width=260"
+                      alt="image.png"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1号和3号盒子占一份，2号盒子占两份</td>
+                  <td>span1(flex:1)<br />span2(flex:2)<br />span3(flex:1)</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612096106046-2caf2628-7b02-4273-8990-ff30c94227ce.png#align=left&amp;display=inline&amp;height=158&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=158&amp;originWidth=262&amp;size=2908&amp;status=done&amp;style=none&amp;width=262"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>1号和3号盒子宽20px，2号盒子占剩余空间</td>
+                  <td>
+                    span1(width:20px)<br />span2(flex:1)<br />span3(width:20px)
+                  </td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612096181642-6f463153-8c37-4309-896b-4570958b4a26.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=254&amp;size=2646&amp;status=done&amp;style=none&amp;width=254"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;250px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;150px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*width:&nbsp;50px;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(1)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;20px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(2)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flex:&nbsp;1;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(3)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;20px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <h3>2.align-self（子项在侧轴的排列方式）</h3>
+            <ol>
+              <li>
+                设置子盒子对齐方式，可覆盖align-items熟悉，默认继承父元素的align-items
+              </li>
+            </ol>
+            <table data-v-md-line="393">
+              <thead>
+                <tr>
+                  <th>2号盒子底部排列</th>
+                  <th>span2(align-self: flex-end)</th>
+                  <th>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612096642027-a28d9ba8-b126-41e3-b63a-bd8e5dfc817d.png#align=left&amp;display=inline&amp;height=156&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=156&amp;originWidth=260&amp;size=3036&amp;status=done&amp;style=none&amp;width=260"
+                      alt="image.png"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2号盒子单独居中</td>
+                  <td>span2(align-self: center)</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612096721300-d3acfb1e-bb56-4eb6-b550-d0046e79ba15.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=259&amp;size=3163&amp;status=done&amp;style=none&amp;width=259"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>2号盒子拉伸</td>
+                  <td>span2(align-self: stretch)</td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612096817970-20929530-2330-4adf-b953-d509ce54d05e.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=259&amp;size=2953&amp;status=done&amp;style=none&amp;width=259"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;250px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;150px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(1),span:nth-child(3){<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(2)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*单独底部排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-self:&nbsp;flex-end;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*单独居中排列*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*align-self:&nbsp;center;*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*单独居中拉伸*/<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align-self:&nbsp;stretch;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <h3>3.order（子项排列先后顺序）</h3>
+            <ol>
+              <li>设置排列顺序，数值越小，越靠前</li>
+            </ol>
+            <table data-v-md-line="447">
+              <thead>
+                <tr>
+                  <th>排列顺序改为213</th>
+                  <th>span2(order:-1)</th>
+                  <th>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612097070896-58198c59-982b-409e-9e5a-30c76bbb47e3.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=256&amp;size=2661&amp;status=done&amp;style=none&amp;width=256"
+                      alt="image.png"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>排列顺序改为321</td>
+                  <td>
+                    span1(order:-1)<br />span2(order:-2)<br />span3(order:-3)
+                  </td>
+                  <td>
+                    <img
+                      src="https://api.cuiliangblog.cn/v1/public/imgProxy/?url=https://cdn.nlark.com/yuque/0/2021/png/2308212/1612097127862-ae43987e-d807-4221-8017-dfc5fcf8a2f0.png#align=left&amp;display=inline&amp;height=159&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=261&amp;size=2823&amp;status=done&amp;style=none&amp;width=261"
+                      alt="image.png"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <code>
+              &lt;!DOCTYPE&nbsp;html&gt;<br />
+              &lt;html&nbsp;lang=&quot;en&quot;&gt;<br />
+              &lt;head&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset=&quot;UTF-8&quot;&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;flex布局&lt;/title&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;flex;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;250px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;150px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;skyblue;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div&nbsp;span&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;50px;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color:&nbsp;pink;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;3px&nbsp;black&nbsp;solid;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(1)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;order:&nbsp;-1;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(2){<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;order:&nbsp;-2;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;span:nth-child(3)&nbsp;{<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;order:&nbsp;-3;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;body&gt;<br />
+              &lt;div&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;1&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;2&lt;/span&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;3&lt;/span&gt;<br />
+              &lt;/div&gt;<br />
+              &lt;/body&gt;<br />
+              &lt;/html&gt;
+            </code>
+            <blockquote>
+              <p>本教程来自互联网，如有侵权请联系站长删除</p>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+      <footer></footer>
+    </div>
+    <script src="../../js/logstyle/logstyle.js"></script>
+    <script src="./essay.js"></script>
+  </body>
+</html>
