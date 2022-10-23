@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+
+    <link rel="stylesheet" href="./icon/iconfont.css" />
+    <link rel="stylesheet" href="./icon2/iconfont.css" />
+    <link rel="stylesheet" href="./essay.css" />
+    <link rel="shortcut icon" href="../../image/title.svg" type="image/svg" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      来自一名初中生的人生经历-大家好我是来自福建厦门的一名初中生对编程有着由衷的兴趣我的英语成绩不是很好但是我却十分喜欢看花花绿绿的代码
+    </title>
+  </head>
+
+  <body>
+    <div :class="body" id="app" ref="rightContent">
+      <div
+        id="top"
+        :class="xiangshang"
+        v-show="isxiangshang"
+        @click="scrolltop_btn"
+      >
+        <span>^</span>
+      </div>
+      <div :class="mubu_style" id="mubu" v-show="ismubu" @click="esc">
+        <!--  -->
+      </div>
+      <div :class="tishi" v-show="istishi">
+        <div>{{tishi_text}}</div>
+      </div>
+      <div :class="shezi" v-show="isshezi">
+        <div class="shezi_head">
+          <div class="shezi_one">
+            显示模式：白昼&nbsp;&nbsp;
+            <label class="label">
+              <div class="toggle">
+                <input
+                  class="toggle-state"
+                  type="checkbox"
+                  name="check"
+                  value="check"
+                  @click="btn_xs"
+                  v-model="btn_xianshi"
+                />
+                <div class="indicator"></div>
+              </div> </label
+            >&nbsp;&nbsp;暗夜
+          </div>
+        </div>
+        <div class="shezi_footer" @click="esc">取消</div>
+      </div>
+      <header>
+        <div class="title">
+          <span class="iconfont icon-weibiaoti--" @click="nav_btn(1)"></span>
+          <h1>来自一名初中生的人生经历</h1>
+          <span class="iconfont icon-shezhi" @click="nav_btn(2)"></span>
+        </div>
+      </header>
+      <article>
+        <div class="title">
+          <h1>来自一名初中生的人生经历</h1>
+          <div class="info">
+            <span>
+              <span class="iconfont icon-wenjian"></span>
+              <span> 其他 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-shijian"></span>
+              <span> 2022-8-20 </span>
+            </span>
+            <span>
+              <span class="iconfont icon-geren"></span>
+              <span> 时迁酱 </span>
+            </span>
+          </div>
+          <div class="article_content">
+            <blockquote>
+              <p>
+                本篇文章讲述的是作者从零基础到目前的经历:作者从小学3年级到初一的经过从一个懵懂天真的小孩儿接触图形化编程《编程猫Nemo》到接触了'Html,Css,JavaScript,Vuejs'后写下的本网站。
+                <b
+                  >Ps:这篇文章只讲述经历，无具体介绍。介绍请看<a
+                    href="https://www.shiqianjiang.cn/"
+                    >首页</a
+                  >。底部Tab栏—&gt;介绍(第三个图标)</b
+                >
+              </p>
+            </blockquote>
+            <h2>一、我的简短的介绍</h2>
+            <p>
+              大家好我是来自福建厦门的一名初中生,我对编程有着由衷的兴趣,虽然我的英语成绩并不是很好但是却十分喜欢看着花花绿绿的代码，当然不用指望我能看懂只不过羡慕罢了，还记得在三年级的时候我看到了一个图形化编程的软件看到海报感觉别有兴趣。进入软件就是一个大大的推荐页面里面有很多训练师（玩家）做的作品例如经典还原马里奥，贪吃蛇，扫雷……和很多训练师自己独自做的游戏很有创造性虽说玩着别人的游戏很快乐但是还是没有玩着自己做的作品香。
+            </p>
+            <h2>二、初识</h2>
+            <h3>1.我的“战绩”</h3>
+            <ul>
+              <li>我的第一个巨作</li>
+            </ul>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/c75e2ce1-69f0-4b9c-8472-e8c020df62ae.webp"
+                alt=""
+              />
+            </p>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/acd98c58-c32f-481e-a2fc-8e7092a0ad5d.webp"
+                alt=""
+              />
+            </p>
+            <ul>
+              <li>
+                我的第一个作品是一个聊天室。那是我第一次会使用云变量(这个应用的称呼，相当于数据库)刚开始只能实现简单的聊天
+              </li>
+            </ul>
+            <ul>
+              <li>
+                后来又实现了发红包，小游戏等功能十分的开心（是不是界面很凌乱）但是当时的我不懂得什么是凌乱，刚开始作品获得第一个赞时我很开心，但是慢慢的就不能满足我了因为随便一个推荐的作品都有1000赞以上。我很羡慕也想上推荐就把我的第一个作品投稿了（没有上）结果我很灰心但是又能如何呢？
+              </li>
+            </ul>
+            <h3>2.我的第一个推荐</h3>
+            <ul>
+              <li>
+                于是过后我又开始第二幅大作《扫雷》（在这个大作之前有很多平平的作品，有的上了主题、喵喵看，有的什么都没有，这个过程中很煎熬有几次都差点放弃，但是最终还是坚持了下来。）这个作品总的用了我10天的时间。用了很多愚蠢算法来完善游戏机制。虽说界面也不算简洁但是至少有很多经验了。这个作品也是我第一个上了推荐的作品。
+              </li>
+            </ul>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/0be20b00-cb2b-45ba-b36c-c91c84bc9c15.webp"
+                alt=""
+              />
+            </p>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/02ae7584-80ce-4243-a6b5-a0c4c1757490.webp"
+                alt=""
+              />
+            </p>
+            <ul>
+              <li>
+                当时推荐位为一天（24小时
+                当天6时至次日6时）更新一次，时间很短但我给在这次也收获了1600多个赞和1536条评论别提当时我多开心万里挑一的推荐呀！只有当时的我知道推荐有多么的难上和获得了有多么的开心。
+              </li>
+            </ul>
+            <h2>三、过程</h2>
+            <p>
+              在这个社区里,我待了整整三年。这三年见证了从一个不起眼的“蚂蚁”最后成了“大牛”过程中我总共获得了4次推荐和12次活动的获奖有水杯，书包，抱枕，鼠标等。我创下了赫赫战绩。
+            </p>
+            <h2>四、结果</h2>
+            <h3>1.抄袭风波</h3>
+            <ul>
+              <li>
+                后来最终在一个版权纠纷下退出了这个大家庭，当时的我参加了一个冬奥会的的主题活动。这个参赛的作品别说有多精致不论动画还是功能都十分全面，功能也很多。
+              </li>
+            </ul>
+            <ul>
+              <li>开始页</li>
+            </ul>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/9e5a9833-e18a-4490-a579-af36d49dc5da.webp"
+                alt=""
+              />
+            </p>
+            <ul>
+              <li>首页</li>
+            </ul>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/229d7e01-4680-44be-84c9-56b6b44686ff.webp"
+                alt=""
+              />
+            </p>
+            <ul>
+              <li>小知识</li>
+            </ul>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/0f386b2a-bcd7-4b37-aa72-99b434f64c76.webp"
+                alt=""
+              />
+            </p>
+            <ul>
+              <li>冰雪助力</li>
+            </ul>
+            <p>
+              <img
+                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-9e622807-88f2-45c7-8044-6eea4b8f33f7/4a60a49b-02e2-4b73-bb72-21e42c3c496c.webp"
+                alt=""
+              />
+            </p>
+            <ul>
+              <li>
+                还有很多想看的可以点一下<a
+                  href="https://shequ.codemao.cn/work/130425460"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >这里</a
+                >
+              </li>
+            </ul>
+            <ul>
+              <li>
+                原本以为至少拿个二等奖（冬奥会的门票，编程机器人）但是最终的结果总是不如愿的:中途被他人举报说我抄袭某某的作品，但是我确确实实的是自己完成的。后来我看了ta的作品跟我的作品有些许相似但是我觉得不能构成抄袭跟何况我并没有抄袭，当时我没有在意并且加了一个雪花飘落的特效，结果ta的作品也加上了，最后还在官方那反咬我一口，哎。我发布作品时间确实比他晚因为我住校只能周六周日在家所以比他晚了一天最后被告到官方哪连解释的机会都没有因为我在学校最后也被取消了名额。
+              </li>
+            </ul>
+            <ul>
+              <li>
+                我当时接受不了这个现实，果断删除这个应用，正式宣告退出。因为住校我错过了很多。除了这个还有，很多次被官方看到想用我的作品进行采访但是最终也没能参加。
+              </li>
+            </ul>
+            <ul>
+              <li>
+                退出来一周后的我就又开始接触Python学完一半后做了很多项目。后来最终没坚持下来又退出了，因为我没有打算继续学下去可以说没有坚持下去。又过一个月我在刷快手时看到了教全栈的作者也是我目前的老师。
+                他叫“<a href="https://kangwenchang.com/" target="_blank"
+                  >康文昌</a
+                >”他是我目前的老师，我很感谢他。没有他可以说就没有现在这个网站。
+              </li>
+            </ul>
+            <blockquote>
+              <p>好了本篇文章到这里就结束了，感谢你的观看。</p>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+      <footer></footer>
+    </div>
+    <script src="../../js/logstyle/logstyle.js"></script>
+    <script src="./essay.js"></script>
+  </body>
+</html>

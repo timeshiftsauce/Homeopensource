@@ -1,0 +1,197 @@
+.essay {
+  overflow: hidden;
+  height: 100%;
+  /* border: 1px solid red; */
+}
+.essay_box {
+  width: 100%;
+}
+.swipe {
+  position: relative;
+  margin: 10px;
+  width: calc(100% - 20px);
+  box-shadow: 0 1px 3px 2px #bfc9ed80 inset;
+  border-radius: 20px;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+}
+.swipe .shezi {
+  z-index: 999;
+  position: absolute;
+  width: 130px;
+  height: 70px;
+  top: 44px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid var(--clr);
+  box-shadow: 1px 1px 2px rgb(225, 219, 219);
+  padding: 10px;
+}
+.swipe .shezi h1 {
+  font-size: 18px;
+}
+.swipe .shezi ul {
+  margin-top: 3px;
+  width: 100%;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.swipe .shezi ul li {
+  text-align: left;
+  margin-left: 20px;
+  list-style: circle;
+  line-height: 20px;
+  width: calc(100% - 30px) !important;
+  font-size: 13px;
+  height: calc(50% - 2px);
+  margin-top: 2px;
+  padding-left: 10px;
+}
+.swipe .shezi ul li.dif {
+  list-style: disc;
+  background-color: rgba(182, 182, 182, 0.434);
+}
+.swipe button {
+  display: flex;
+  width: 40px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  border-left: 2px solid var(--clr);
+  background: transparent;
+  align-items: center;
+}
+.swipe button:hover > svg {
+  margin-left: 3px;
+  width: 27px !important;
+  height: 27px !important;
+}
+.swipe button:active > svg {
+  margin-left: 5px;
+  width: 23px !important;
+  height: 23px !important;
+}
+button svg {
+  transition: all 0.1s;
+  margin-left: 5px;
+  width: 23px;
+  height: 23px;
+}
+.swipe ul {
+  overflow: auto !important;
+  padding-right: 44px;
+  padding-left: 10px;
+  width: calc(100% - 54px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  overflow: auto;
+}
+.swipe ul li {
+  cursor: pointer;
+  border-radius: 20px;
+  width: 70px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #000000;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+.swipe ul li.push {
+  background-color: var(--clr);
+  box-shadow: 0 0px 0px 2px #ffffff86 inset;
+}
+.list_ul_essay {
+  border-radius: 10px;
+  margin: 10px 0;
+  width: 100%;
+  /* border: 2px solid; */
+  height: calc(100vh - 192px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.list_ul_essay > li {
+  cursor: default;
+  display: block;
+  border-radius: 10px;
+  margin: 6px;
+  height: 100px !important;
+  width: calc(100% - 12px);
+  height: auto;
+  background-color: #fff;
+  /* 利用css变量延迟进入时间--index-在html中随index递增 */
+  animation: calc(var(--index-) * calc(0.21s - calc(0.01s * var(--index-)))) list_in
+  ease;
+}
+.list_ul_essay > li div.essay_bar {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+.list_ul_essay > li img {
+  margin: 6px;
+  border-radius: 5px;
+  height: calc(100% - 12px);
+  background-color: #fff;
+}
+.list_ul_essay > li div.essay_bar > div {
+  flex: 1;
+  width: 0px;
+  height: 100px;
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.list_ul_essay > li div.essay_bar > div h1 {
+  /* 标题不换行，溢出显示省略号 */
+  margin: 0;
+  overflow: hidden;
+  width: calc(100% - 12px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 20px;
+  height: 35px;
+  line-height: 40px;
+  padding: 0 6px;
+  z-index: 9;
+}
+.list_ul_essay > li div.essay_bar > div::after {
+  content: "";
+  z-index: 2;
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: calc(100% - 6px);
+  height: 9px;
+  background-color: rgba(83, 150, 226, 0.384);
+}
+.list_ul_essay > li div.essay_bar > div p {
+  display: inline-block;
+  height: calc(100% - 46px);
+  width: calc(100% - 12px);
+  padding: 0 6px 6px 6px;
+  color: #575454;
+  line-height: 20px;
+  overflow: hidden;
+  font-size: 14px;
+  text-indent: 1.6em;
+}
+@keyframes list_in {
+  from {
+    padding-left: 100%;
+  }
+  to {
+    padding-left: 0%;
+  }
+}
