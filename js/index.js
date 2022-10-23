@@ -7,6 +7,7 @@ function time() {
   shijiang = "本破站：已经安全运行：" + DateDiff("2022-7-26", dangqian) + " 天";
 }
 
+
 time();
 /* 计算运行天数的封装函数 */
 function DateDiff(sDate1, sDate2) {
